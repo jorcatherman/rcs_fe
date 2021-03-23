@@ -1,7 +1,7 @@
-import loggedReducer from "../reducers/loggedReducers";
-import { combineReducers } from "redux";
+import loggedReducer from '../reducers/loggedReducers';
+import { combineReducers } from 'redux';
 
 const globalState = combineReducers({
-	isLogged: loggedReducer,
+  isLogged: loggedReducer,
 });
 export default globalState;
