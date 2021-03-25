@@ -1,3 +1,80 @@
+# RCS Front-End
+
+## Project Structure Overview
+
+We only need to work on folder/files with comments.
+
+```bash
+    src
+    ├── App.css
+    ├── App.js
+    ├── App.test.js
+    ├── components      <--- All generated components are in this folder. 
+    │   ├── Content.js  <--- Define all routes here.
+    │   └── login       <--- Each component is grouped with their jsx and css file.
+    │       └── Login.js
+    ├── index.css
+    ├── index.js
+    ├── logo.svg
+    ├── redux           <--- All actions and reducers for Redux.
+    │   ├── actions
+    │   │   └── loggedActions.js
+    │   └── reducers
+    │       ├── globalReducers.js
+    │       └── loggedReducers.js
+    ├── reportWebVitals.js
+    ├── setupTests.js
+    └── util            <--- Any utility functions that is needed.
+```
+
+## Redux 
+
+We will be using Redux to manage our global state (in Redux, it's called the "Store"). 
+
+For now, we only have one field in the Store, `isLogged : boolean`. We'll use this field to tell our application if the user is logged in or out.
+
+To changed the value, we must "dispatch" an "action." And to read the value, we must "subscribe" to the store.
+
+Here is an example on how to change the value of `isLogged` in our program.
+
+Note: we only have two actions defined `loggedIn()` and `notLoggedIn()`
+
+Code:
+
+```javascript
+import { useDispatch, useSelector } from 'react-redux';   //import redux functions to dispatch, subscribe to the store
+import loggedActions from '../../redux/actions/loggedActions';  //import defined actions for "isLogged"
+function Login() {
+  const isLogged = useSelector((State) => State.isLogged);  //Subscribe to the store, we select what property we want from the store.
+  const dispatch = useDispatch();                           //Assign dispatch function
+  return (
+    <div>
+      Login Page!
+      <div>
+        <button
+          onClick={() => {                              //When the button is clicked, we want to change the value of "isLogged" to "true"
+            dispatch(loggedActions.loggedIn());         //To do this, we call "dipatch" funtions and throw in the "loggedIn()" action.
+          }}
+        >
+          Login
+        </button>
+      </div>
+      <div>
+        <button
+          onClick={() => {
+            dispatch(loggedActions.notLoggedIn());    //We do the same if we want to loggout, 
+          }}                                          //this time we use "notLoggedIn()" action
+        >
+          Logout
+        </button>
+      </div>
+      <div>isLogged value is: {isLogged + ''}</div>
+    </div>
+  );
+}
+export default Login;
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
